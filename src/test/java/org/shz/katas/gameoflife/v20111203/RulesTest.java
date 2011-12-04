@@ -17,44 +17,38 @@ public class RulesTest {
 
 	@Test
 	public void liveCellWithTwoNeighboursShallLiveOn() {
-		Cell liveCell = new LiveCell();
-		Cell result = rules.nextGeneration(liveCell, 2);
-		assertThat(result, instanceOf(LiveCell.class));
+		CellState result = rules.nextGeneration(CellState.Alive, 2);
+		assertThat(result, equalTo(CellState.Alive));
 	}
 
 	@Test
 	public void liveCellWithFourNeighboursShallDie() {
-		Cell liveCell = new LiveCell();
-		Cell result = rules.nextGeneration(liveCell, 4);
-		assertThat(result, instanceOf(DeadCell.class));
+		CellState result = rules.nextGeneration(CellState.Alive, 4);
+		assertThat(result, equalTo(CellState.Dead));
 	}
 
 	@Test
 	public void deadCellWithTwoNeighboursRemainsDead() {
-		Cell deadCell = new DeadCell();
-		Cell result = rules.nextGeneration(deadCell, 2);
-		assertThat(result, instanceOf(DeadCell.class));
+		CellState result = rules.nextGeneration(CellState.Dead, 2);
+		assertThat(result, equalTo(CellState.Dead));
 	}
 
 	@Test
 	public void deadCellWithThreeNeighboursShallBecomeAlive() {
-		Cell deadCell = new DeadCell();
-		Cell result = rules.nextGeneration(deadCell, 3);
-		assertThat(result, instanceOf(LiveCell.class));
+		CellState result = rules.nextGeneration(CellState.Dead, 3);
+		assertThat(result, equalTo(CellState.Alive));
 	}
 
 	@Test
 	public void deadCellWithNoNeighbourShallRemainDead() {
-		Cell deadCell = new DeadCell();
-		Cell result = rules.nextGeneration(deadCell, 0);
-		assertThat(result, instanceOf(DeadCell.class));
+		CellState result = rules.nextGeneration(CellState.Dead, 0);
+		assertThat(result, equalTo(CellState.Dead));
 	}
 
 	@Test
 	public void liveCellWithOneNeighbourDies() {
-		Cell liveCell = new LiveCell();
-		Cell result = rules.nextGeneration(liveCell, 1);
-		assertThat(result, instanceOf(DeadCell.class));
+		CellState result = rules.nextGeneration(CellState.Alive, 1);
+		assertThat(result, equalTo(CellState.Dead));
 	}
 
 
