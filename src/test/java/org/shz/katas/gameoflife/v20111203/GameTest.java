@@ -1,15 +1,13 @@
 package org.shz.katas.gameoflife.v20111203;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class GameTest {
 
 	@Test
-	@Ignore
 	public void blockShallRemainBlock() {
 		String seed = "____$" +
 				      "_xx_$" +
@@ -20,7 +18,6 @@ public class GameTest {
 	}
 	
 	@Test
-	@Ignore
 	public void lonelyCentreCellIn3By3UniverseShallDieAfterFirstGeneration(){
 		String seed = "___$" +
 				      "_x_$" +
@@ -29,7 +26,7 @@ public class GameTest {
 								  "___$" +
 								  "___$";
 		Game game = new Game(seed);
-		assertThat(expectedUniverse,equalTo(game.nextGeneration()));
+		assertThat(game.nextGeneration(),equalTo(expectedUniverse));
 	}
 	
 
