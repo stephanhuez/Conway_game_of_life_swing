@@ -1,10 +1,12 @@
-package org.shz.katas.gameoflife.v20111203;
+package org.shz.katas.gameoflife.model;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.shz.katas.gameoflife.model.CellState;
+import org.shz.katas.gameoflife.model.Rules;
 
 public class RulesTest {
 

@@ -1,0 +1,12 @@
+Ongoing:
+========
+
+To do:
+======
+=> Add a next button that will go to the next generation.
+=> Add a reset button that will make all the cells unoccupied.
+=> Add a start button that will start the game with the seed set on the board.
+=> Add a stop button that will stop the game.
+
+Done:
+===== 

@@ -1,4 +1,4 @@
-package org.shz.katas.gameoflife.v20111203;
+package org.shz.katas.gameoflife.model;
 
 public class Game {
 
