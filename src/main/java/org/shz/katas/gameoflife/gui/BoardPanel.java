@@ -19,44 +19,44 @@ public class BoardPanel extends JPanel {
     private Board board;
     private int cellHeight;
     private int cellWidth;
-    private int boardWidth;
-    private int boardHeight;
-    private int rows;
     private int columns;
+    private int rows;
 
     public BoardPanel(int columns, int rows) {
-        this.columns = columns;
         this.rows = rows;
+        this.columns = columns;
         this.board = new Board(columns, rows);
         this.cellWidth = DEFAULT_CELL_WIDTH;
         this.cellHeight = DEFAULT_CELL_HEIGHT;
-        this.boardWidth = this.cellWidth * columns;
-        this.boardHeight = this.cellHeight * rows;
         registerEvents();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        int currentRow = 0, currentCol = 0;
-        for (int x = DEFAULT_BORDER_SIZE; x <= boardWidth; x += cellWidth) {
-            for (int y = DEFAULT_BORDER_SIZE; y <= boardHeight; y += cellHeight) {
-                g.drawRect(x, y, cellWidth, cellHeight);
-                if (board.isOccupied(currentCol, currentRow)) {
-                    g.fillRect(x, y, cellWidth, cellHeight);
-                }
-                currentRow++;
+        int y = DEFAULT_BORDER_SIZE;
+        for (int currentRow = 0; currentRow < rows; currentRow++) {
+            int x = DEFAULT_BORDER_SIZE;
+            for (int currentCol = 0; currentCol < columns; currentCol++) {
+                drawCell(g, y, currentRow, x, currentCol);
+                x += cellWidth;
             }
-            currentRow = 0;
-            currentCol++;
+            y += cellHeight;
+        }
+    }
+
+    private void drawCell(Graphics g, int y, int currentRow, int x, int currentCol) {
+        g.drawRect(x, y, cellWidth, cellHeight);
+        if (board.isOccupied(currentRow, currentCol)) {
+            g.fillRect(x, y, cellWidth, cellHeight);
         }
     }
 
     public int getBoardHeight() {
-        return board.getHeight();
+        return board.getRows();
     }
 
     public int getBoardWidth() {
-        return board.getWidth();
+        return board.getColumns();
     }
 
     public int getCellwidth() {
@@ -76,12 +76,15 @@ public class BoardPanel extends JPanel {
             public void mousePressed(MouseEvent e) {
                 Point p = e.getPoint();
                 if (isInGrid(p)) {
-
-                    int row = findRowClicked(p);
-                    int col = findColumnClick(p);
-                    board.toggle(col, row);
+                    toggle(p);
                     repaint();
                 }
+            }
+
+            private void toggle(Point p) {
+                int row = findRowClicked(p);
+                int col = findColumnClick(p);
+                board.toggle(row, col);
             }
         };
         addMouseListener(ml);
@@ -89,13 +92,11 @@ public class BoardPanel extends JPanel {
     }
 
     private int findRowClicked(Point p) {
-        double yInc = (double) (getHeight() - 2 * DEFAULT_BORDER_SIZE) / rows;
-        return (int) ((p.y - DEFAULT_BORDER_SIZE) / yInc);
+        return (int) ((p.y - DEFAULT_BORDER_SIZE) / cellHeight);
     }
 
     private int findColumnClick(Point p) {
-        double xInc = (double) (getWidth() - 2 * DEFAULT_BORDER_SIZE) / columns;
-        return (int) ((p.x - DEFAULT_BORDER_SIZE) / xInc);
+        return (int) ((p.x - DEFAULT_BORDER_SIZE) / cellWidth);
 
     }
 
@@ -107,6 +108,11 @@ public class BoardPanel extends JPanel {
 
     protected Board getBoard() {
         return board;
+    }
+
+    public void tick() {
+        board.tick();
+        repaint();
     }
 
 }
