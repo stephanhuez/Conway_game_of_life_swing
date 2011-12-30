@@ -21,10 +21,10 @@ public class BoardPanelTest {
 
     @Test
     public void should_initialise_model() {
-        BoardPanel panel = new BoardPanel(10, 20);
+        BoardPanel panel = new BoardPanel(20, 10);
 
-        assertThat(panel.getBoardWidth(), equalTo(10));
-        assertThat(panel.getBoardHeight(), equalTo(20));
+        assertThat(panel.getColumns(), equalTo(10));
+        assertThat(panel.getRows(), equalTo(20));
     }
 
     @Test
@@ -38,7 +38,7 @@ public class BoardPanelTest {
 
     @Test
     public void should_draw_rectangles_corresponding_to_initial_board() {
-        BoardPanel panel = new BoardPanel(10, 20);
+        BoardPanel panel = new BoardPanel(20, 10);
         Graphics graphics = newMockGraphics();
 
         panel.paintComponent(graphics);
@@ -77,7 +77,7 @@ public class BoardPanelTest {
 
     @Test
     public void should_draw_occupied_cell_as_filled() {
-        TestBoardPanel panel = new TestBoardPanel(3, 3);
+        BoardPanel panel = new BoardPanel(3, 3);
         Graphics graphics = newMockGraphics();
 
         panel.toggle(2, 2);
@@ -87,8 +87,28 @@ public class BoardPanelTest {
     }
 
     @Test
+    public void tick_should_tick_board() {
+        BoardPanel panel = new BoardPanel(2, 2);
+        panel.toggle(0, 0);
+
+        panel.tick();
+
+        assertThat(panel.isOccupied(0, 0), is(Board.unoccupied));
+    }
+
+    @Test
+    public void tick_should_repaint_panel() {
+        BoardPanel panel = new BoardPanel(2, 2);
+        panel.toggle(0, 0);
+
+        panel.tick();
+
+        assertThat(panel.isOccupied(0, 0), is(Board.unoccupied));
+    }
+
+    @Test
     public void should_draw_unoccupied_cell_as_empty() {
-        TestBoardPanel panel = new TestBoardPanel(3, 3);
+        BoardPanel panel = new BoardPanel(3, 3);
         Graphics graphics = newMockGraphics();
 
         panel.toggle(2, 2);
@@ -98,23 +118,33 @@ public class BoardPanelTest {
         verify(graphics, never()).fillRect(eq(70), eq(70), anyInt(), anyInt());
     }
 
+    @Test
+    public void should_calculate_panel_height() {
+        BoardPanel panel = new BoardPanel(3, 4);
+
+        assertThat(panel.getComponentHeight(), equalTo(110));
+    }
+
+    @Test
+    public void should_calculate_panel_width() {
+        BoardPanel panel = new BoardPanel(3, 4);
+
+        assertThat(panel.getComponentWidth(), equalTo(140));
+    }
+
+    @Test
+    public void should_reset_the_board() {
+        BoardPanel panel = new BoardPanel(3, 3);
+        panel.toggle(2, 2);
+
+        panel.reset();
+        assertThat(panel.isOccupied(2, 2), is(false));
+    }
+
     private Graphics2D newMockGraphics() {
         Graphics2D graphics = mock(Graphics2D.class);
         when(graphics.create()).thenReturn(graphics);
         return graphics;
-    }
-
-    private class TestBoardPanel extends BoardPanel {
-
-        private static final long serialVersionUID = -6671916506461607344L;
-
-        public TestBoardPanel(int columns, int rows) {
-            super(columns, rows);
-        }
-
-        public void toggle(int column, int row) {
-            getBoard().toggle(column, row);
-        }
     }
 
 }

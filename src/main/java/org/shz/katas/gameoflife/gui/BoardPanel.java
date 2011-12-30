@@ -22,10 +22,10 @@ public class BoardPanel extends JPanel {
     private int columns;
     private int rows;
 
-    public BoardPanel(int columns, int rows) {
+    public BoardPanel(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
-        this.board = new Board(columns, rows);
+        this.board = new Board(rows, columns);
         this.cellWidth = DEFAULT_CELL_WIDTH;
         this.cellHeight = DEFAULT_CELL_HEIGHT;
         registerEvents();
@@ -51,11 +51,11 @@ public class BoardPanel extends JPanel {
         }
     }
 
-    public int getBoardHeight() {
+    public int getRows() {
         return board.getRows();
     }
 
-    public int getBoardWidth() {
+    public int getColumns() {
         return board.getColumns();
     }
 
@@ -72,22 +72,23 @@ public class BoardPanel extends JPanel {
     }
 
     private void registerEvents() {
+
         MouseListener ml = new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 Point p = e.getPoint();
                 if (isInGrid(p)) {
-                    toggle(p);
-                    repaint();
+                    toggleAndRepaint(p);
                 }
-            }
-
-            private void toggle(Point p) {
-                int row = findRowClicked(p);
-                int col = findColumnClick(p);
-                board.toggle(row, col);
             }
         };
         addMouseListener(ml);
+    }
+
+    private void toggleAndRepaint(Point p) {
+        int row = findRowClicked(p);
+        int col = findColumnClick(p);
+        board.toggle(row, col);
+        repaint();
 
     }
 
@@ -106,12 +107,25 @@ public class BoardPanel extends JPanel {
         return r.contains(p);
     }
 
-    protected Board getBoard() {
-        return board;
+    protected void toggle(int column, int row) {
+        board.toggle(column, row);
     }
 
     public void tick() {
         board.tick();
+        repaint();
+    }
+
+    public int getComponentHeight() {
+        return rows * DEFAULT_CELL_HEIGHT + 2 * DEFAULT_BORDER_SIZE;
+    }
+
+    public int getComponentWidth() {
+        return columns * DEFAULT_CELL_WIDTH + 2 * DEFAULT_BORDER_SIZE;
+    }
+
+    public void reset() {
+        board.reset();
         repaint();
     }
 

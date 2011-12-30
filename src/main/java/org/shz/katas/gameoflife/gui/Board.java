@@ -9,7 +9,7 @@ public class Board {
     private boolean[][] cells;
     private Rules rules;
 
-    public Board(int columns, int rows) {
+    public Board(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
         this.cells = new boolean[rows][columns];
@@ -25,7 +25,7 @@ public class Board {
     }
 
     public int getColumns() {
-        return this.columns;
+        return columns;
     }
 
     public int getRows() {
@@ -140,6 +140,14 @@ public class Board {
             return "x";
         }
         return "_";
+    }
+
+    public void reset() {
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < columns; col++) {
+                cells[row][col] = unoccupied;
+            }
+        }
     }
 
 }

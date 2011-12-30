@@ -9,14 +9,14 @@ public class BoardTest {
 
     @Test
     public void new_board_should_initialise_with_provided_height() {
-        Board board = new Board(10, 20);
+        Board board = new Board(20, 10);
 
         assertThat(board.getRows(), equalTo(20));
     }
 
     @Test
     public void new_board_should_initialise_with_provided_width() {
-        Board board = new Board(10, 20);
+        Board board = new Board(20, 10);
 
         assertThat(board.getColumns(), equalTo(10));
     }
@@ -84,17 +84,17 @@ public class BoardTest {
         assertThat(board.isOccupied(1, 0), equalTo(Board.unoccupied));
         assertThat(board.isOccupied(1, 1), equalTo(Board.unoccupied));
     }
-    
+
     @Test
-    public void single_tick_on_glider_shall_yield_expected_occupancy(){
-        Board board = new Board (4,4);
-        
-        board.toggle(0,1);
-        board.toggle(1,2);
-        board.toggle(2,0);
-        board.toggle(2,1);
-        board.toggle(2,2);
-        
+    public void single_tick_on_glider_shall_yield_expected_occupancy() {
+        Board board = new Board(4, 4);
+
+        board.toggle(0, 1);
+        board.toggle(1, 2);
+        board.toggle(2, 0);
+        board.toggle(2, 1);
+        board.toggle(2, 2);
+
         board.tick();
 
         assertThat(board.isOccupied(0, 0), equalTo(Board.unoccupied));
@@ -114,17 +114,17 @@ public class BoardTest {
         assertThat(board.isOccupied(3, 2), equalTo(Board.unoccupied));
         assertThat(board.isOccupied(3, 3), equalTo(Board.unoccupied));
     }
-    
+
     @Test
-    public void double_tick_on_glider_shall_yield_expected_occupancy(){
-        Board board = new Board (4,4);
-        
-        board.toggle(0,1);
-        board.toggle(1,2);
-        board.toggle(2,0);
-        board.toggle(2,1);
-        board.toggle(2,2);
-        
+    public void double_tick_on_glider_shall_yield_expected_occupancy() {
+        Board board = new Board(4, 4);
+
+        board.toggle(0, 1);
+        board.toggle(1, 2);
+        board.toggle(2, 0);
+        board.toggle(2, 1);
+        board.toggle(2, 2);
+
         board.tick();
         board.tick();
 
@@ -144,5 +144,46 @@ public class BoardTest {
         assertThat(board.isOccupied(3, 1), equalTo(Board.occupied));
         assertThat(board.isOccupied(3, 2), equalTo(Board.occupied));
         assertThat(board.isOccupied(3, 3), equalTo(Board.unoccupied));
+    }
+
+    @Test
+    public void as_string_should_convert_fully_occupied_board() {
+        Board board = new Board(2, 2);
+
+        board.toggle(0, 0);
+        board.toggle(1, 0);
+        board.toggle(0, 1);
+        board.toggle(1, 1);
+
+        assertThat(board.asString(), equalTo("xx\nxx\n"));
+    }
+
+    @Test
+    public void as_string_should_convert_empty_board() {
+        Board board = new Board(3, 2);
+
+        assertThat(board.asString(), equalTo("__\n__\n__\n"));
+    }
+
+    @Test
+    public void as_string_should_convert_to_block() {
+        Board board = new Board(4, 4);
+
+        board.toggle(1, 1);
+        board.toggle(1, 2);
+        board.toggle(2, 1);
+        board.toggle(2, 2);
+
+        assertThat(board.asString(), equalTo("____\n_xx_\n_xx_\n____\n"));
+    }
+
+    @Test
+    public void should_reset_cells() {
+        Board board = new Board(2, 2);
+        board.toggle(1, 1);
+
+        board.reset();
+        
+        assertThat(board.isOccupied(1, 1), is(false));
     }
 }

@@ -1,12 +1,18 @@
 Ongoing:
 ========
-
+=> Measure the coverage of the code
 To do:
 ======
-=> Add a next button that will go to the next generation.
 => Add a reset button that will make all the cells unoccupied.
+=> Make the universe wrap around
 => Add a start button that will start the game with the seed set on the board.
 => Add a stop button that will stop the game.
-
+=> Allow the loading of a pattern from a file using the syntax ___x___$____x__$ 
+=> Allow saving a pattern to a file using the syntax  ___x___$____x__$
+=> Allow changing the size of the board
+=> Allow changing the size of the cells
+=> Allow changing the colour of the grid and the cell
+=> Add a gradle build
 Done:
 ===== 
+=> Add a next button that will go to the next generation.
