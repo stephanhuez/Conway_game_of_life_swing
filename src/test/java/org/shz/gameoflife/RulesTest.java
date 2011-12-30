@@ -1,12 +1,12 @@
-package org.shz.gameoflife.gui;
+package org.shz.gameoflife;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.shz.gameoflife.gui.Board;
-import org.shz.gameoflife.gui.Rules;
+import org.shz.gameoflife.Board;
+import org.shz.gameoflife.Rules;
 
 public class RulesTest {
 

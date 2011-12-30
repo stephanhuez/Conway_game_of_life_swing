@@ -1,4 +1,4 @@
-package org.shz.gameoflife.gui;
+package org.shz.gameoflife;
 
 public class Rules {
 

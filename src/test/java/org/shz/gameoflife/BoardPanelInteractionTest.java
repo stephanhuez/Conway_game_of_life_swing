@@ -1,4 +1,4 @@
-package org.shz.gameoflife.gui;
+package org.shz.gameoflife;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.netbeans.jemmy.operators.*;
-import org.shz.gameoflife.gui.BoardPanel;
+import org.shz.gameoflife.BoardPanel;
 
 public class BoardPanelInteractionTest {
 

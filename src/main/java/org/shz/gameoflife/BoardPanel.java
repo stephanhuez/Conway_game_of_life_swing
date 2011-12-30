@@ -1,4 +1,4 @@
-package org.shz.gameoflife.gui;
+package org.shz.gameoflife;
 
 import java.awt.Graphics;
 import java.awt.Point;

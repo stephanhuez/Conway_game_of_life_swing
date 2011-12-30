@@ -1,4 +1,4 @@
-package org.shz.gameoflife.gui;
+package org.shz.gameoflife;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -11,8 +11,8 @@ import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.operators.JButtonOperator;
 import org.netbeans.jemmy.operators.JComponentOperator;
 import org.netbeans.jemmy.operators.JFrameOperator;
-import org.shz.gameoflife.gui.BoardPanel;
-import org.shz.gameoflife.gui.GameOfLifeApp;
+import org.shz.gameoflife.BoardPanel;
+import org.shz.gameoflife.GameOfLifeApp;
 
 public class GameOfLifeAppTest {
 

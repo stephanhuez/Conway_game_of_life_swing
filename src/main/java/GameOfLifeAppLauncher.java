@@ -1,6 +1,6 @@
 
 
-import org.shz.gameoflife.gui.GameOfLifeApp;
+import org.shz.gameoflife.GameOfLifeApp;
 
 public class GameOfLifeAppLauncher {
 

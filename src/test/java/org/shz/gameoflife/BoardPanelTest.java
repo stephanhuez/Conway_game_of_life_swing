@@ -1,4 +1,4 @@
-package org.shz.gameoflife.gui;
+package org.shz.gameoflife;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -10,8 +10,8 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import org.junit.Test;
-import org.shz.gameoflife.gui.Board;
-import org.shz.gameoflife.gui.BoardPanel;
+import org.shz.gameoflife.Board;
+import org.shz.gameoflife.BoardPanel;
 
 public class BoardPanelTest {
 
