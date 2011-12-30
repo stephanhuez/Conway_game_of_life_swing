@@ -1,9 +1,10 @@
-package org.shz.katas.gameoflife.gui;
+package org.shz.gameoflife.gui;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 import org.junit.Test;
+import org.shz.gameoflife.gui.Board;
 
 public class BoardTest {
 

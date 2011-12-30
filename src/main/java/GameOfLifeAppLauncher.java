@@ -1,4 +1,6 @@
-package org.shz.katas.gameoflife.gui;
+
+
+import org.shz.gameoflife.gui.GameOfLifeApp;
 
 public class GameOfLifeAppLauncher {
 

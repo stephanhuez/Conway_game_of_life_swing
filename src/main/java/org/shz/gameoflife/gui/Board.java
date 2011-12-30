@@ -1,4 +1,4 @@
-package org.shz.katas.gameoflife.gui;
+package org.shz.gameoflife.gui;
 
 public class Board {
 

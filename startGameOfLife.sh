@@ -1,2 +1,2 @@
 #!/bin/bash
-java -cp target/classes org.shz.katas.gameoflife.gui.GameOfLifeAppLauncher
+java -cp target/classes GameOfLifeAppLauncher
