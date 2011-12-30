@@ -67,8 +67,8 @@ public class BoardPanel extends JPanel {
         return this.cellHeight;
     }
 
-    public boolean isOccupied(int column, int row) {
-        return board.isOccupied(column, row);
+    public boolean isOccupied(int row, int column) {
+        return board.isOccupied(row, column);
     }
 
     private void registerEvents() {
@@ -107,8 +107,8 @@ public class BoardPanel extends JPanel {
         return r.contains(p);
     }
 
-    protected void toggle(int column, int row) {
-        board.toggle(column, row);
+    protected void toggle(int row, int column) {
+        board.toggle(row, column);
     }
 
     public void tick() {

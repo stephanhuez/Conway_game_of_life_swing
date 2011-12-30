@@ -1,6 +1,5 @@
 package org.shz.gameoflife;
 
-
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -10,16 +9,18 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import javax.swing.Timer;
 
 public class GameOfLifeApp extends JFrame {
 
+    private static final int TIMER_SPEED = 500;
     private static final long serialVersionUID = 5357372067190037769L;
     public static final String TITLE = "Conway's Game of Life";
     private static final int FIXED_WINDOW_SPACE_HEIGHT = 70;
     private BoardPanel boardPanel;
     private int columns;
     private int rows;
+    private Timer timer;
 
     public GameOfLifeApp(int rows, int columns) {
         this.rows = rows;
@@ -82,11 +83,23 @@ public class GameOfLifeApp extends JFrame {
 
     private JButton newStartButton() {
         JButton button = new JButton("Start");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startTicking();
+            }
+        });
         return button;
     }
 
     private JButton newStopButton() {
         JButton button = new JButton("Stop");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                stopTicking();
+            }
+        });
         return button;
     }
 
@@ -110,5 +123,19 @@ public class GameOfLifeApp extends JFrame {
             }
         });
         return button;
+    }
+
+    private void startTicking() {
+        ActionListener act = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                boardPanel.tick();
+            }
+        };
+        timer = new Timer(TIMER_SPEED, act);
+        timer.start();
+    }
+
+    private void stopTicking() {
+        timer.stop();
     }
 }

@@ -93,7 +93,7 @@ public class GameOfLifeAppTest {
     }
 
     @Test
-    public void clicking_on_reset_button_should_reset_board(){
+    public void clicking_on_reset_button_should_reset_board() {
         JComponentOperator boardPanelOperator = new JComponentOperator(frameOperator, new BoardPanelChooser());
         BoardPanel panel = (BoardPanel) boardPanelOperator.getSource();
         JButtonOperator button = new JButtonOperator(frameOperator, "Reset");
@@ -103,12 +103,51 @@ public class GameOfLifeAppTest {
 
         assertThat(panel.isOccupied(1, 1), is(false));
     }
-    
+
     @Test
     public void should_have_start_button() {
         JButtonOperator button = new JButtonOperator(frameOperator, "Start");
 
         assertThat(button, notNullValue());
+    }
+
+    @Test
+    public void start_button_should_start_timed_tick_of_the_board() throws Exception {
+        JButtonOperator button = new JButtonOperator(frameOperator, "Start");
+        JComponentOperator boardPanelOperator = new JComponentOperator(frameOperator, new BoardPanelChooser());
+        BoardPanel panel = (BoardPanel) boardPanelOperator.getSource();
+
+        panel.toggle(4, 4);
+        panel.toggle(4, 5);
+        panel.toggle(4, 6);
+
+        button.push();
+        Thread.sleep(1500);
+
+        assertThat(panel.isOccupied(3, 5), is(true));
+        assertThat(panel.isOccupied(4, 5), is(true));
+        assertThat(panel.isOccupied(5, 5), is(true));
+    }
+
+    @Test
+    public void stop_button_should_stop_timed_tick_of_the_board() throws Exception {
+        JButtonOperator start = new JButtonOperator(frameOperator, "Start");
+        JButtonOperator stop = new JButtonOperator(frameOperator, "Stop");
+        JComponentOperator boardPanelOperator = new JComponentOperator(frameOperator, new BoardPanelChooser());
+        BoardPanel panel = (BoardPanel) boardPanelOperator.getSource();
+
+        panel.toggle(8, 4);
+        panel.toggle(8, 5);
+        panel.toggle(8, 6);
+
+        start.push();
+        Thread.sleep(1500);
+        stop.push();
+        Thread.sleep(500);
+
+        assertThat(panel.isOccupied(7, 5), is(true));
+        assertThat(panel.isOccupied(8, 5), is(true));
+        assertThat(panel.isOccupied(9, 5), is(true));
     }
 
     @Test
