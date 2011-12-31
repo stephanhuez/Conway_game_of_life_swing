@@ -7,8 +7,6 @@ import static org.mockito.Mockito.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import javax.swing.JPanel;
-
 import org.junit.Test;
 import org.shz.gameoflife.Board;
 import org.shz.gameoflife.BoardPanel;
@@ -16,31 +14,18 @@ import org.shz.gameoflife.BoardPanel;
 public class BoardPanelTest {
 
     @Test
-    public void should_be_a_jpanel() {
-        BoardPanel panel = new BoardPanel(10, 10);
-        assertThat(panel, instanceOf(JPanel.class));
-    }
-
-    @Test
-    public void should_initialise_model() {
-        BoardPanel panel = new BoardPanel(20, 10);
+    public void should_know_size_from_model() {
+        Board universe = new Board(20, 10);
+        BoardPanel panel = new BoardPanel(universe);
 
         assertThat(panel.getColumns(), equalTo(10));
         assertThat(panel.getRows(), equalTo(20));
     }
 
     @Test
-    public void should_initialise_cell_width_and_height() {
-        BoardPanel panel = new BoardPanel(10, 10);
-
-        assertThat(panel.getCellHeight(), equalTo(30));
-        assertThat(panel.getCellwidth(), equalTo(30));
-
-    }
-
-    @Test
-    public void should_draw_rectangles_corresponding_to_initial_board() {
-        BoardPanel panel = new BoardPanel(20, 10);
+    public void should_draw_rectangles_corresponding_to_initial_universe() {
+        Board universe = new Board(20, 10);
+        BoardPanel panel = new BoardPanel(universe);
         Graphics graphics = newMockGraphics();
 
         panel.paintComponent(graphics);
@@ -49,8 +34,9 @@ public class BoardPanelTest {
     }
 
     @Test
-    public void should_draw_rectangles_of_default_size() {
-        BoardPanel panel = new BoardPanel(10, 10);
+    public void should_draw_rectangles_of_proper_size() {
+        Board universe = new Board(10, 10);
+        BoardPanel panel = new BoardPanel(universe);
         Graphics graphics = newMockGraphics();
 
         panel.paintComponent(graphics);
@@ -60,8 +46,9 @@ public class BoardPanelTest {
     }
 
     @Test
-    public void should_draw_rectangles_corresponding_to_board_layout_border_inclusive() {
-        BoardPanel panel = new BoardPanel(3, 3);
+    public void should_draw_universe_inside_borders() {
+        Board universe = new Board(3, 3);
+        BoardPanel panel = new BoardPanel(universe);
         Graphics2D graphics = newMockGraphics();
 
         panel.paintComponent(graphics);
@@ -79,7 +66,8 @@ public class BoardPanelTest {
 
     @Test
     public void should_draw_occupied_cell_as_filled() {
-        BoardPanel panel = new BoardPanel(3, 3);
+        Board universe = new Board(3, 3);
+        BoardPanel panel = new BoardPanel(universe);
         Graphics graphics = newMockGraphics();
 
         panel.toggle(2, 2);
@@ -89,28 +77,9 @@ public class BoardPanelTest {
     }
 
     @Test
-    public void tick_should_tick_board() {
-        BoardPanel panel = new BoardPanel(2, 2);
-        panel.toggle(0, 0);
-
-        panel.tick();
-
-        assertThat(panel.isOccupied(0, 0), is(Board.unoccupied));
-    }
-
-    @Test
-    public void tick_should_repaint_panel() {
-        BoardPanel panel = new BoardPanel(2, 2);
-        panel.toggle(0, 0);
-
-        panel.tick();
-
-        assertThat(panel.isOccupied(0, 0), is(Board.unoccupied));
-    }
-
-    @Test
     public void should_draw_unoccupied_cell_as_empty() {
-        BoardPanel panel = new BoardPanel(3, 3);
+        Board universe = new Board(3, 3);
+        BoardPanel panel = new BoardPanel(universe);
         Graphics graphics = newMockGraphics();
 
         panel.toggle(2, 2);
@@ -122,25 +91,18 @@ public class BoardPanelTest {
 
     @Test
     public void should_calculate_panel_height() {
-        BoardPanel panel = new BoardPanel(3, 4);
+        Board universe = new Board(3, 4);
+        BoardPanel panel = new BoardPanel(universe);
 
         assertThat(panel.getComponentHeight(), equalTo(110));
     }
 
     @Test
     public void should_calculate_panel_width() {
-        BoardPanel panel = new BoardPanel(3, 4);
+        Board universe = new Board(3, 4);
+        BoardPanel panel = new BoardPanel(universe);
 
         assertThat(panel.getComponentWidth(), equalTo(140));
-    }
-
-    @Test
-    public void should_reset_the_board() {
-        BoardPanel panel = new BoardPanel(3, 3);
-        panel.toggle(2, 2);
-
-        panel.reset();
-        assertThat(panel.isOccupied(2, 2), is(false));
     }
 
     private Graphics2D newMockGraphics() {

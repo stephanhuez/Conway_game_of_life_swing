@@ -22,6 +22,7 @@ public class GameOfLifeApp extends JFrame {
     private int rows;
     private Timer timer;
 
+    @Deprecated
     public GameOfLifeApp(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
@@ -137,5 +138,13 @@ public class GameOfLifeApp extends JFrame {
 
     private void stopTicking() {
         timer.stop();
+    }
+
+    public void setBoard(Board board) {
+        
+    }
+
+    public void refresh() {
+        repaint();
     }
 }

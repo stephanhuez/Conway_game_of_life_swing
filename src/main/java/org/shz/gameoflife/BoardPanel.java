@@ -17,26 +17,26 @@ public class BoardPanel extends JPanel {
     private static final int DEFAULT_BORDER_SIZE = 10;
 
     private Board board;
-    private int cellHeight;
-    private int cellWidth;
-    private int columns;
-    private int rows;
+    private int cellHeight = DEFAULT_CELL_HEIGHT;
+    private int cellWidth = DEFAULT_CELL_WIDTH;
 
+    @Deprecated
     public BoardPanel(int rows, int columns) {
-        this.rows = rows;
-        this.columns = columns;
         this.board = new Board(rows, columns);
-        this.cellWidth = DEFAULT_CELL_WIDTH;
-        this.cellHeight = DEFAULT_CELL_HEIGHT;
         registerEvents();
     }
 
+    public BoardPanel(Board board) {
+        this.board = board;
+        registerEvents();
+    }
+    
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         int y = DEFAULT_BORDER_SIZE;
-        for (int currentRow = 0; currentRow < rows; currentRow++) {
+        for (int currentRow = 0; currentRow < board.getRows(); currentRow++) {
             int x = DEFAULT_BORDER_SIZE;
-            for (int currentCol = 0; currentCol < columns; currentCol++) {
+            for (int currentCol = 0; currentCol < board.getColumns(); currentCol++) {
                 drawCell(g, y, currentRow, x, currentCol);
                 x += cellWidth;
             }
@@ -117,11 +117,11 @@ public class BoardPanel extends JPanel {
     }
 
     public int getComponentHeight() {
-        return rows * DEFAULT_CELL_HEIGHT + 2 * DEFAULT_BORDER_SIZE;
+        return board.getRows() * DEFAULT_CELL_HEIGHT + 2 * DEFAULT_BORDER_SIZE;
     }
 
     public int getComponentWidth() {
-        return columns * DEFAULT_CELL_WIDTH + 2 * DEFAULT_BORDER_SIZE;
+        return board.getColumns() * DEFAULT_CELL_WIDTH + 2 * DEFAULT_BORDER_SIZE;
     }
 
     public void reset() {

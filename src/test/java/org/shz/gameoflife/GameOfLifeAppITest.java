@@ -14,7 +14,7 @@ import org.netbeans.jemmy.operators.JFrameOperator;
 import org.shz.gameoflife.BoardPanel;
 import org.shz.gameoflife.GameOfLifeApp;
 
-public class GameOfLifeAppTest {
+public class GameOfLifeAppITest {
 
     private GameOfLifeApp app;
     private JFrameOperator frameOperator;
@@ -122,7 +122,7 @@ public class GameOfLifeAppTest {
         panel.toggle(4, 6);
 
         button.push();
-        Thread.sleep(1500);
+        Thread.sleep(600);
 
         assertThat(panel.isOccupied(3, 5), is(true));
         assertThat(panel.isOccupied(4, 5), is(true));
@@ -141,7 +141,7 @@ public class GameOfLifeAppTest {
         panel.toggle(8, 6);
 
         start.push();
-        Thread.sleep(1500);
+        Thread.sleep(1200);
         stop.push();
         Thread.sleep(500);
 

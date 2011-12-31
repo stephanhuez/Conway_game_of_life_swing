@@ -20,7 +20,8 @@ public class BoardPanelInteractionTest {
     @Before
     public void setUp() {
         JFrame frame = new JFrame("GUI Test");
-        panel = new BoardPanel(10, 10);
+        Board board = new Board(10, 10);
+        panel = new BoardPanel(board);
         frame.add(panel);
         frame.setSize(320, 340);
 

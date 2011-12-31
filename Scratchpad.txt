@@ -1,5 +1,7 @@
 Ongoing:
 ========
+=> Add a controller to decouple actions from components
+=> Move the board to the controller
 
 To do:
 ======
