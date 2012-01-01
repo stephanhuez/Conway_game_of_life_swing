@@ -1,8 +1,6 @@
 Ongoing:
 ========
-=> Add a controller to decouple actions from components
-=> Move the board to the controller
-
+=> Introduce an interface to make the model read-only for the view
 To do:
 ======
 => Make the universe wrap around
@@ -16,6 +14,8 @@ To do:
 
 Done:
 ===== 
+=> Move the board to the controller
+=> Add a controller to decouple actions from components
 => Add a start button that will start the game with the seed set on the board.
 => Add a stop button that will stop the game.
 => Add a reset button that will make all the cells unoccupied.
