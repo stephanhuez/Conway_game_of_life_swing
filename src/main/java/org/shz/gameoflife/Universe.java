@@ -1,6 +1,6 @@
 package org.shz.gameoflife;
 
-public class Universe {
+public class Universe implements GameBoard {
 
     public static final boolean occupied = true;
     public static final boolean unoccupied = false;
@@ -20,14 +20,26 @@ public class Universe {
         cells[row][column] = !cells[row][column];
     }
 
+    /* (non-Javadoc)
+     * @see org.shz.gameoflife.GameBoard#isOccupied(int, int)
+     */
+    @Override
     public boolean isOccupied(int row, int column) {
         return cells[row][column];
     }
 
+    /* (non-Javadoc)
+     * @see org.shz.gameoflife.GameBoard#getColumns()
+     */
+    @Override
     public int getColumns() {
         return columns;
     }
 
+    /* (non-Javadoc)
+     * @see org.shz.gameoflife.GameBoard#getRows()
+     */
+    @Override
     public int getRows() {
         return rows;
     }

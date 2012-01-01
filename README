@@ -1,0 +1,6 @@
+This project is an implementation of Conway's Game of Life in Java/Swing. 
+
+To launch the game:
+  
+  1. Build the project with Maven
+  2. Run the project using the shell script startGameOfLife.sh

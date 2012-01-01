@@ -16,7 +16,7 @@ public class GameOfLifeView extends JFrame {
     public static final String TITLE = "Conway's Game of Life";
     private static final int FIXED_WINDOW_SPACE_HEIGHT = 70;
     private BoardPanel boardPanel;
-    private Universe universe;
+    private GameBoard board;
     private GameController controller;
 
     public void start() {
@@ -50,7 +50,7 @@ public class GameOfLifeView extends JFrame {
 
     private void addBoardPanel() {
         boardPanel = new BoardPanel(controller);
-        boardPanel.setModel(universe);
+        boardPanel.setModel(board);
         boardPanel.setName("BoardPanel");
         add(boardPanel, BorderLayout.CENTER);
     }
@@ -118,8 +118,8 @@ public class GameOfLifeView extends JFrame {
         return button;
     }
 
-    public void setModel(Universe universe) {
-        this.universe = universe;
+    public void setModel(GameBoard board) {
+        this.board = board;
     }
 
     public void refresh() {

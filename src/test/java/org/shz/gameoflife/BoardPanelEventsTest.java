@@ -16,10 +16,10 @@ public class BoardPanelEventsTest {
 
     @Before
     public void setUp() {
-        Universe universe = new Universe(10, 10);
+        GameBoard board = new Universe(10, 10);
         controller = mock(GameController.class);
         panel = new BoardPanel(controller);
-        panel.setModel(universe);
+        panel.setModel(board);
         operator = new ComponentOperator(panel);
     }
 

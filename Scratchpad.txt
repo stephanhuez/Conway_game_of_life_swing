@@ -1,6 +1,5 @@
 Ongoing:
 ========
-=> Introduce an interface to make the model read-only for the view
 To do:
 ======
 => Make the universe wrap around
@@ -14,6 +13,7 @@ To do:
 
 Done:
 ===== 
+=> Introduce an interface to make the model read-only for the view
 => Move the board to the controller
 => Add a controller to decouple actions from components
 => Add a start button that will start the game with the seed set on the board.

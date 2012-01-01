@@ -11,7 +11,7 @@ public class UniverseTest {
     @Test
     public void new_universe_should_initialise_with_provided_height() {
         // Given
-        Universe universe = newUniverse(20, 10);
+        GameBoard universe = newUniverse(20, 10);
 
         // Then
         assertThat(universe.getRows(), equalTo(20));
@@ -20,7 +20,7 @@ public class UniverseTest {
     @Test
     public void new_universe_should_initialise_with_provided_width() {
         // Given
-        Universe universe = newUniverse(20, 10);
+        GameBoard universe = newUniverse(20, 10);
 
         // Then
         assertThat(universe.getColumns(), equalTo(10));
@@ -29,7 +29,7 @@ public class UniverseTest {
     @Test
     public void new_universe_should_initialise_as_many_cells_as_requested() {
         // Given
-        Universe universe = newUniverse(3, 3);
+        GameBoard universe = newUniverse(3, 3);
 
         // Then
         assertThat(universe.isOccupied(0, 0), is(false));

@@ -16,7 +16,7 @@ public class BoardPanel extends JPanel {
     private static final int DEFAULT_CELL_WIDTH = 30;
     private static final int DEFAULT_BORDER_SIZE = 10;
 
-    private Universe universe;
+    private GameBoard board;
     private int cellHeight = DEFAULT_CELL_HEIGHT;
     private int cellWidth = DEFAULT_CELL_WIDTH;
     private GameController controller;
@@ -30,9 +30,9 @@ public class BoardPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         int y = DEFAULT_BORDER_SIZE;
-        for (int currentRow = 0; currentRow < universe.getRows(); currentRow++) {
+        for (int currentRow = 0; currentRow < board.getRows(); currentRow++) {
             int x = DEFAULT_BORDER_SIZE;
-            for (int currentCol = 0; currentCol < universe.getColumns(); currentCol++) {
+            for (int currentCol = 0; currentCol < board.getColumns(); currentCol++) {
                 drawCell(g, y, currentRow, x, currentCol);
                 x += cellWidth;
             }
@@ -42,17 +42,17 @@ public class BoardPanel extends JPanel {
 
     private void drawCell(Graphics g, int y, int currentRow, int x, int currentCol) {
         g.drawRect(x, y, cellWidth, cellHeight);
-        if (universe.isOccupied(currentRow, currentCol)) {
+        if (board.isOccupied(currentRow, currentCol)) {
             g.fillRect(x, y, cellWidth, cellHeight);
         }
     }
 
     public int getRows() {
-        return universe.getRows();
+        return board.getRows();
     }
 
     public int getColumns() {
-        return universe.getColumns();
+        return board.getColumns();
     }
 
     public int getCellwidth() {
@@ -105,15 +105,15 @@ public class BoardPanel extends JPanel {
     }
 
     private int getGridHeight() {
-        return universe.getRows() * DEFAULT_CELL_HEIGHT;
+        return board.getRows() * DEFAULT_CELL_HEIGHT;
     }
 
     private int getGridWidth() {
-        return universe.getColumns() * DEFAULT_CELL_WIDTH;
+        return board.getColumns() * DEFAULT_CELL_WIDTH;
     }
 
-    public void setModel(Universe universe) {
-        this.universe = universe;
+    public void setModel(GameBoard board) {
+        this.board = board;
     }
 
 }
