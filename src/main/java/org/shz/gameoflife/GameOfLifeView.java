@@ -9,27 +9,18 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
-public class GameOfLifeApp extends JFrame {
+public class GameOfLifeView extends JFrame {
 
-    private static final int TIMER_SPEED = 500;
     private static final long serialVersionUID = 5357372067190037769L;
     public static final String TITLE = "Conway's Game of Life";
     private static final int FIXED_WINDOW_SPACE_HEIGHT = 70;
     private BoardPanel boardPanel;
-    private int columns;
-    private int rows;
-    private Timer timer;
-
-    @Deprecated
-    public GameOfLifeApp(int rows, int columns) {
-        this.rows = rows;
-        this.columns = columns;
-        layoutComponents();
-    }
+    private Universe universe;
+    private GameController controller;
 
     public void start() {
+        layoutComponents();
         setTitle(TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(calculateWidth(), calculateHeight());
@@ -58,7 +49,8 @@ public class GameOfLifeApp extends JFrame {
     }
 
     private void addBoardPanel() {
-        boardPanel = new BoardPanel(rows, columns);
+        boardPanel = new BoardPanel(controller);
+        boardPanel.setModel(universe);
         boardPanel.setName("BoardPanel");
         add(boardPanel, BorderLayout.CENTER);
     }
@@ -87,7 +79,7 @@ public class GameOfLifeApp extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startTicking();
+                controller.start();
             }
         });
         return button;
@@ -98,7 +90,7 @@ public class GameOfLifeApp extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                stopTicking();
+                controller.stop();
             }
         });
         return button;
@@ -109,7 +101,7 @@ public class GameOfLifeApp extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                boardPanel.tick();
+                controller.tick();
             }
         });
         return button;
@@ -120,31 +112,21 @@ public class GameOfLifeApp extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                boardPanel.reset();
+                controller.reset();
             }
         });
         return button;
     }
 
-    private void startTicking() {
-        ActionListener act = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                boardPanel.tick();
-            }
-        };
-        timer = new Timer(TIMER_SPEED, act);
-        timer.start();
-    }
-
-    private void stopTicking() {
-        timer.stop();
-    }
-
-    public void setBoard(Board board) {
-        
+    public void setModel(Universe universe) {
+        this.universe = universe;
     }
 
     public void refresh() {
         repaint();
+    }
+
+    public void setController(GameController controller) {
+        this.controller = controller;
     }
 }

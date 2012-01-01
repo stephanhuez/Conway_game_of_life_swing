@@ -8,18 +8,19 @@ import javax.swing.Timer;
 public class GameController {
     private static final int TIMER_SPEED = 500;
 
-    private Board universe;
-    private GameOfLifeApp view;
+    private Universe universe;
+    private GameOfLifeView view;
     private Timer timer;
 
-    public GameController(Board universe, GameOfLifeApp view) {
+    public GameController(Universe universe, GameOfLifeView view) {
         this.universe = universe;
         this.view = view;
-        view.setBoard(universe);
+        view.setModel(universe);
     }
 
     public void toggle(int row, int column) {
         universe.toggle(row, column);
+        view.refresh();
     }
 
     public void tick() {

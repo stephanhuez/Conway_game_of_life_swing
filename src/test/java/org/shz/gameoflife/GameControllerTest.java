@@ -9,20 +9,21 @@ import static org.hamcrest.Matchers.*;
 public class GameControllerTest {
 
     private GameController controller;
-    private GameOfLifeApp view;
-    private Board universe;
+    private GameOfLifeView view;
+    private Universe universe;
 
     @Before
     public void setUp() {
-        universe = new Board(10, 10);
-        view = mock(GameOfLifeApp.class);
+        universe = new Universe(10, 10);
+        view = mock(GameOfLifeView.class);
         controller = new GameController(universe, view);
+        view.setController(controller);
     }
 
     @Test
-    public void should_initialise_model_in_app() {
+    public void should_initialise_model_in_view() {
         // Then
-        verify(view).setBoard(universe);
+        verify(view).setModel(universe);
     }
 
     @Test
@@ -138,5 +139,14 @@ public class GameControllerTest {
 
         // Then
         verify(view, times(2)).refresh();
+    }
+
+    @Test
+    public void toggle_should_tell_view_to_refresh() {
+        // When
+        controller.toggle(1, 1);
+
+        // Then
+        verify(view).refresh();
     }
 }

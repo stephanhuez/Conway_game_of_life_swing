@@ -16,27 +16,23 @@ public class BoardPanel extends JPanel {
     private static final int DEFAULT_CELL_WIDTH = 30;
     private static final int DEFAULT_BORDER_SIZE = 10;
 
-    private Board board;
+    private Universe universe;
     private int cellHeight = DEFAULT_CELL_HEIGHT;
     private int cellWidth = DEFAULT_CELL_WIDTH;
+    private GameController controller;
 
-    @Deprecated
-    public BoardPanel(int rows, int columns) {
-        this.board = new Board(rows, columns);
+
+    public BoardPanel(GameController controller) {
+        this.controller = controller;
         registerEvents();
     }
 
-    public BoardPanel(Board board) {
-        this.board = board;
-        registerEvents();
-    }
-    
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         int y = DEFAULT_BORDER_SIZE;
-        for (int currentRow = 0; currentRow < board.getRows(); currentRow++) {
+        for (int currentRow = 0; currentRow < universe.getRows(); currentRow++) {
             int x = DEFAULT_BORDER_SIZE;
-            for (int currentCol = 0; currentCol < board.getColumns(); currentCol++) {
+            for (int currentCol = 0; currentCol < universe.getColumns(); currentCol++) {
                 drawCell(g, y, currentRow, x, currentCol);
                 x += cellWidth;
             }
@@ -46,17 +42,17 @@ public class BoardPanel extends JPanel {
 
     private void drawCell(Graphics g, int y, int currentRow, int x, int currentCol) {
         g.drawRect(x, y, cellWidth, cellHeight);
-        if (board.isOccupied(currentRow, currentCol)) {
+        if (universe.isOccupied(currentRow, currentCol)) {
             g.fillRect(x, y, cellWidth, cellHeight);
         }
     }
 
     public int getRows() {
-        return board.getRows();
+        return universe.getRows();
     }
 
     public int getColumns() {
-        return board.getColumns();
+        return universe.getColumns();
     }
 
     public int getCellwidth() {
@@ -67,29 +63,23 @@ public class BoardPanel extends JPanel {
         return this.cellHeight;
     }
 
-    public boolean isOccupied(int row, int column) {
-        return board.isOccupied(row, column);
-    }
-
     private void registerEvents() {
 
         MouseListener ml = new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 Point p = e.getPoint();
                 if (isInGrid(p)) {
-                    toggleAndRepaint(p);
+                    toggle(p);
                 }
             }
         };
         addMouseListener(ml);
     }
 
-    private void toggleAndRepaint(Point p) {
+    private void toggle(Point p) {
         int row = findRowClicked(p);
         int col = findColumnClick(p);
-        board.toggle(row, col);
-        repaint();
-
+        controller.toggle(row, col);
     }
 
     private int findRowClicked(Point p) {
@@ -102,31 +92,28 @@ public class BoardPanel extends JPanel {
     }
 
     private boolean isInGrid(Point p) {
-        Rectangle r = getBounds();
-        r.grow(-DEFAULT_BORDER_SIZE, -DEFAULT_BORDER_SIZE);
+        Rectangle r = new Rectangle(DEFAULT_BORDER_SIZE, DEFAULT_BORDER_SIZE, getGridHeight(), getGridWidth());
         return r.contains(p);
     }
 
-    protected void toggle(int row, int column) {
-        board.toggle(row, column);
-    }
-
-    public void tick() {
-        board.tick();
-        repaint();
-    }
-
     public int getComponentHeight() {
-        return board.getRows() * DEFAULT_CELL_HEIGHT + 2 * DEFAULT_BORDER_SIZE;
+        return getGridHeight() + 2 * DEFAULT_BORDER_SIZE;
     }
 
     public int getComponentWidth() {
-        return board.getColumns() * DEFAULT_CELL_WIDTH + 2 * DEFAULT_BORDER_SIZE;
+        return getGridWidth() + 2 * DEFAULT_BORDER_SIZE;
     }
 
-    public void reset() {
-        board.reset();
-        repaint();
+    private int getGridHeight() {
+        return universe.getRows() * DEFAULT_CELL_HEIGHT;
+    }
+
+    private int getGridWidth() {
+        return universe.getColumns() * DEFAULT_CELL_WIDTH;
+    }
+
+    public void setModel(Universe universe) {
+        this.universe = universe;
     }
 
 }

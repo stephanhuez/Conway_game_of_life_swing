@@ -1,6 +1,6 @@
 package org.shz.gameoflife;
 
-public class Board {
+public class Universe {
 
     public static final boolean occupied = true;
     public static final boolean unoccupied = false;
@@ -9,7 +9,7 @@ public class Board {
     private boolean[][] cells;
     private Rules rules;
 
-    public Board(int rows, int columns) {
+    public Universe(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
         this.cells = new boolean[rows][columns];

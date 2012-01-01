@@ -1,12 +1,15 @@
-
-
-import org.shz.gameoflife.GameOfLifeApp;
+import org.shz.gameoflife.GameController;
+import org.shz.gameoflife.GameOfLifeView;
+import org.shz.gameoflife.Universe;
 
 public class GameOfLifeAppLauncher {
 
     public static void main(String[] args) {
-        GameOfLifeApp app = new GameOfLifeApp(20, 20);
-        app.start();
+        Universe model = new Universe(20, 20);
+        GameOfLifeView view = new GameOfLifeView();
+        GameController controller = new GameController(model, view);
+        view.setController(controller);
+        view.start();
     }
 
 }
