@@ -25,7 +25,7 @@ public class GameOfLifeView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(calculateWidth(), calculateHeight());
         setVisible(true);
-        setResizable(true);
+        setResizable(false);
     }
 
     private int calculateHeight() {

@@ -1,5 +1,6 @@
 Ongoing:
 ========
+
 To do:
 ======
 => Make the universe wrap around
@@ -13,6 +14,7 @@ To do:
 
 Done:
 ===== 
+=> Make proper use of the event dispatching thread of Swing
 => Introduce an interface to make the model read-only for the view
 => Move the board to the controller
 => Add a controller to decouple actions from components
